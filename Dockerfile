@@ -1,6 +1,6 @@
 # shadowsocks
 #
-# VERSION 0.0.1
+# VERSION 0.0.2
 
 FROM debian:wheezy
 MAINTAINER Thomas <zhgqthomas@gmail.com>
@@ -11,7 +11,7 @@ RUN apt-get update && \
 	apt-get -t wheezy-backports install -y dh-systemd init-system-helpers
 RUN apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
     gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev git
-RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git
+RUN cd ~ && git clone https://github.com/shadowsocks/shadowsocks-libev.git
 RUN cd shadowsocks-libev && dpkg-buildpackage -b -us -uc -i
 RUN cd .. && dpkg -i shadowsocks-libev*.deb
 RUN /etc/init.d/shadowsocks-libev start
