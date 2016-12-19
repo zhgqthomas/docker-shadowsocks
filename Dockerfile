@@ -8,8 +8,8 @@ MAINTAINER Thomas <zhgqthomas@gmail.com>
 RUN echo "deb http://ftp.debian.org/debian wheezy-backports main" | \
 	tee /etc/apt/sources.list.d/backports.list
 RUN apt-get update && \
-	apt-get -t wheezy-backports install dh-systemd init-system-helpers
-RUN apt-get install --no-install-recommends build-essential autoconf libtool libssl-dev \
+	apt-get -t wheezy-backports install -y dh-systemd init-system-helpers
+RUN apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
     gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev git
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git
 RUN cd shadowsocks-libev && dpkg-buildpackage -b -us -uc -i
