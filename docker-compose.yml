@@ -1,0 +1,7 @@
+shadowsocks:
+  build: .
+  ports:
+    - '19891:19891'
+  volumes:
+    - '/etc/localtime:/etc/localtime:ro'
+  command: ss-server -s 0.0.0.0 -p 19891 -k $passwd -m aes-256-cfb
