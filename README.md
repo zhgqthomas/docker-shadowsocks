@@ -1,5 +1,5 @@
 ## Docker-shadowsocks
-This Dockerfile builds an image with [Shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) written in pure C. Based on Debian wheezy image.
+This Dockerfile builds an image with [Shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) written in pure C. Based on Debian jessie image.
 
 ## How to use this image
 

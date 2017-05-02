@@ -1,22 +1,29 @@
 # shadowsocks
 #
-# VERSION 0.0.3
+# VERSION 1.0.0
 
-FROM debian:wheezy
+FROM debian:jessie
 MAINTAINER Thomas <zhgqthomas@gmail.com>
 
-ENV BASEDIR /tmp/shadowsocks-libev
+ENV BASEDIR /tmp/shadowsocks-libev \
+	BUILDDIR /tmp/build-area
 
-RUN echo "deb http://ftp.debian.org/debian wheezy-backports main" | \
-	tee /etc/apt/sources.list.d/backports.list
-RUN apt-get update && \
-	apt-get -t wheezy-backports install -y dh-systemd init-system-helpers
-RUN apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
-    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev git-core
+# add Debian jessie backports
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" | \
+	tee /etc/apt/sources.list.d/backports.list 
+# update repository & upgrade dependencies
+RUN apt-get update
+RUN apt-get -t jessie-backports upgrade
+# git pull shadowsocks-libev
+RUN apt-get install -y --no-install-recommends git
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git $BASEDIR
 WORKDIR $BASEDIR
-RUN dpkg-buildpackage -b -us -uc -i
-RUN cd .. && dpkg -i shadowsocks-libev*.deb
+RUN git submodule update --init --recursive
+# build shadowsocks-libev by script
+RUN mkdir -p $BUILDDIR
+RUN cp ./scripts/build_deb.sh $BUILDDIR
+WORKDIR $BUILDDIR
+RUN ./build_deb.sh
 
 # Configure container to run as an executable
 ENTRYPOINT ["/usr/bin/ss-server"]
