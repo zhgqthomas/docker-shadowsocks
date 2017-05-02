@@ -1,6 +1,6 @@
 # shadowsocks
 #
-# VERSION 1.0.0
+# VERSION 1.0.1
 
 FROM debian:jessie
 MAINTAINER Thomas <zhgqthomas@gmail.com>
@@ -13,7 +13,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" | \
 	tee /etc/apt/sources.list.d/backports.list 
 # update repository & upgrade dependencies
 RUN apt-get update
-RUN apt-get -t jessie-backports upgrade
+RUN apt-get -t jessie-backports upgrade -y --no-install-recommends
 # git pull shadowsocks-libev
 RUN apt-get install -y --no-install-recommends git
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git $BASEDIR
