@@ -8,7 +8,6 @@ services:
     restart: always
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
-      - ‘/var/log/shadowsocksr.log:/var/log/shadowsocksr.log'
     command: python server.py -p 51348 -k fuckinggfw -m aes-128-ctr -O auth_aes128_md5 -o tls1.2_ticket_auth -G 32
   shadowsocks:
     build: .
