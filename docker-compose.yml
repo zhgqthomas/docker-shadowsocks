@@ -4,11 +4,11 @@ services:
   ssr:
     build: ./shadowsocksR
     ports:
-      - '19891:19891'
+      - '51348:51348'
     restart: always
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
-    command: python server.py -p 19891 -k fuckinggfw -m aes-128-ctr -O auth_aes128_md5 -o tls1.2_ticket_auth_compatible -G 32
+    command: python server.py -p 51348 -k fuckinggfw -m aes-128-ctr -O auth_aes128_md5 -o tls1.2_ticket_auth -G 32
   shadowsocks:
     build: .
     ports:
